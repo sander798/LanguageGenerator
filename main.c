@@ -7,13 +7,17 @@
  This program generates a requested number of names using a pattern of vowels, consonants, prefixes, and suffixes to simulate a fantasy language naming scheme.
  */
 
-char vowels[][2] = {{"a"}, {"e"}, {"i"}, {"o"}, {"u"}, {"y"}, {"aa"}, {"ee"}, {"ii"},
+char vowels[][3] = {{"a"}, {"e"}, {"i"}, {"o"}, {"u"}, {"y"}, {"aa"}, {"ee"}, {"ii"},
                     {"oo"}, {"uu"}, {"yy"}, {"ae"}, {"ui"}, {"ie"}, {"ei"}, {"oi"}, {"io"},
                     {"eo"}, {"oe"}, {"ey"}, {"ye"}};
 
-char consonants[][2] = {{"q"}, {"w"}, {"r"}, {"t"}, {"y"}, {"p"}, {"s"}, {"d"}, {"f"},
+int VOWEL_NUM = sizeof(vowels) / sizeof(vowels[0]);
+
+char consonants[][3] = {{"q"}, {"w"}, {"r"}, {"t"}, {"y"}, {"p"}, {"s"}, {"d"}, {"f"},
                         {"g"}, {"h"}, {"j"}, {"k"}, {"l"}, {"z"}, {"x"}, {"c"}, {"v"},
                         {"b"}, {"n"}, {"m"}, {"qu"}, {"ll"}};
+
+int CONSONANT_NUM = sizeof(consonants) / sizeof(consonants[0]);
 
 char prefixes[6][6] = {{""}};
 char suffixes[6][6] = {{""}};
@@ -31,8 +35,6 @@ int main(int argc, char* argv[]){
         nameCount > 128 ? nameCount = 128 : 0;
     }
 
-    printf("%d\n", nameCount);
-
     long seed = time(NULL);
 
     //Get the random seed if provided
@@ -42,7 +44,35 @@ int main(int argc, char* argv[]){
 
     srand(seed);
 
-    //printf("%ld\n", seed);
+    //Choose vowels
+    int vowelCount = 4 + rand() % 6;
+    char *pChosenVowels[vowelCount];
+
+    printf("Vowels:\n");
+
+    for (int i = 0; i < vowelCount; i += 1) {
+        pChosenVowels[i] = vowels[rand() % VOWEL_NUM];
+        printf("%s\n", pChosenVowels[i]);
+    }
+
+    //Choose consonants
+    int consonantCount = 10 + rand() % 10;
+    char *pChosenConsonants[consonantCount];
+
+    printf("Consonants:\n");
+
+    for (int i = 0; i < consonantCount; i += 1) {
+        pChosenConsonants[i] = consonants[rand() % CONSONANT_NUM];
+        printf("%s\n", pChosenConsonants[i]);
+    }
+
+    //Create prefixes
+
+
+    //Create suffixes
+
+
+    //Output
 
     return 0;
 }
