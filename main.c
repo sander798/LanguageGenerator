@@ -26,6 +26,8 @@ const int TOTAL_PREFIXES = sizeof(prefixes) / sizeof(prefixes[0]);
 char suffixes[6][11] = {{""}};
 const int TOTAL_SUFFIXES = sizeof(suffixes) / sizeof(suffixes[0]);
 
+const int CONSONANT_RATIO = 4;
+
 int main(int argc, char* argv[]){
 
     int nameCount = 10; //Default to 10 names
@@ -79,12 +81,12 @@ int main(int argc, char* argv[]){
 
         //Get an element from either vowels or consonants for each prefix element
         for (int c = 0; c < size; c += 1) {
-            if (rand() % 2){
-                strcat(prefixes[i], pChosenVowels[rand() % vowelCount]);
+            if (rand() % CONSONANT_RATIO){
+                strcat(prefixes[i], pChosenConsonants[rand() % consonantCount]);
                 continue;
             }
 
-            strcat(prefixes[i], pChosenConsonants[rand() % consonantCount]);
+            strcat(prefixes[i], pChosenVowels[rand() % vowelCount]);
         }
 
         //printf("%s\n", prefixes[i]);
@@ -97,12 +99,12 @@ int main(int argc, char* argv[]){
 
         //Get an element from either vowels or consonants for each suffix element
         for (int c = 0; c < size; c += 1) {
-            if (rand() % 2){
-                strcat(suffixes[i], pChosenVowels[rand() % vowelCount]);
+            if (rand() % CONSONANT_RATIO){
+                strcat(suffixes[i], pChosenConsonants[rand() % consonantCount]);
                 continue;
             }
 
-            strcat(suffixes[i], pChosenConsonants[rand() % consonantCount]);
+            strcat(suffixes[i], pChosenVowels[rand() % vowelCount]);
         }
 
         //printf("%s\n", suffixes[i]);
@@ -117,16 +119,16 @@ int main(int argc, char* argv[]){
             strcat(name, prefixes[rand() % TOTAL_PREFIXES]);
         }
 
-        //Add between 1 and 10 elements
-        size = 1 + (rand() % 10);
+        //Add elements
+        size = 1 + (rand() % 5);
 
         for (int c = 0; c < size; c += 1) {
-            if (rand() % 2){
-                strcat(name, pChosenVowels[rand() % vowelCount]);
+            if (rand() % CONSONANT_RATIO){
+                strcat(name, pChosenConsonants[rand() % consonantCount]);
                 continue;
             }
 
-            strcat(name, pChosenConsonants[rand() % consonantCount]);
+            strcat(name, pChosenVowels[rand() % vowelCount]);
         }
 
         //Add a suffix
