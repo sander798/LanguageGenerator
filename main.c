@@ -49,7 +49,7 @@ int main(int argc, char* argv[]){
     srand(seed);
 
     //Choose vowels
-    int vowelCount = 4 + rand() % 6;
+    int vowelCount = 4 + (rand() % (TOTAL_VOWELS - 3));
     char *pChosenVowels[vowelCount];
 
     //printf("Vowels:\n");
@@ -60,7 +60,7 @@ int main(int argc, char* argv[]){
     }
 
     //Choose consonants
-    int consonantCount = 10 + rand() % 10;
+    int consonantCount = 10 + (rand() % (TOTAL_CONSONANTS - 9));
     char *pChosenConsonants[consonantCount];
 
     //printf("Consonants:\n");
