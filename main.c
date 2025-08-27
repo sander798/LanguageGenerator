@@ -74,8 +74,8 @@ int main(int argc, char* argv[]){
     int size = 0;
 
     for (int i = 0; i < TOTAL_PREFIXES; i += 1) {
-        //Get a random prefix size of at least 2
-        size = 2 + (rand() % ((sizeof(prefixes[0]) / 2) - 1));
+        //Get a random prefix size of at least 1
+        size = 1 + (rand() % (sizeof(prefixes[0]) / 2));
 
         //Get an element from either vowels or consonants for each prefix element
         for (int c = 0; c < size; c += 1) {
@@ -92,8 +92,8 @@ int main(int argc, char* argv[]){
 
     //Create suffixes
     for (int i = 0; i < TOTAL_SUFFIXES; i += 1) {
-        //Get a random suffix size of at least 2
-        size = 2 + (rand() % ((sizeof(suffixes[0]) / 2) - 1));
+        //Get a random suffix size of at least 1
+        size = 1 + (rand() % (sizeof(suffixes[0]) / 2));
 
         //Get an element from either vowels or consonants for each suffix element
         for (int c = 0; c < size; c += 1) {
@@ -105,10 +105,37 @@ int main(int argc, char* argv[]){
             strcat(suffixes[i], pChosenConsonants[rand() % consonantCount]);
         }
 
-        printf("%s\n", suffixes[i]);
+        //printf("%s\n", suffixes[i]);
     }
 
-    //Output
+    //Output names
+    for (int i = 0; i < nameCount; i += 1) {
+        char name[32] = "";
+
+        //Add a prefix
+        if (rand() % 2) {
+            strcat(name, prefixes[rand() % TOTAL_PREFIXES]);
+        }
+
+        //Add between 1 and 10 elements
+        size = 1 + (rand() % 10);
+
+        for (int c = 0; c < size; c += 1) {
+            if (rand() % 2){
+                strcat(name, pChosenVowels[rand() % vowelCount]);
+                continue;
+            }
+
+            strcat(name, pChosenConsonants[rand() % consonantCount]);
+        }
+
+        //Add a suffix
+        if (rand() % 2) {
+            strcat(name, suffixes[rand() % TOTAL_SUFFIXES]);
+        }
+
+        printf("%s\n", name);
+    }
 
     return 0;
 }
