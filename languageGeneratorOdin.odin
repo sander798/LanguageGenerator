@@ -19,6 +19,11 @@ consonants := []string {
     "k", "l", "z", "x", "c", "v", "b", "n", "m", "qu", "ll"
 }
 
+Word :: struct {
+    word: [5]^string,
+    size: int,
+}
+
 consonantRatio :: 4
 
 main :: proc() {
@@ -55,50 +60,53 @@ main :: proc() {
     }
 
     //Create prefixes
-    prefixes: [6]string
+    prefixes := [6]Word{}
 
     size := 0
 
-    for i in 0..<len(prefixes) {
+    for i in 0..<6 {
         size = 1 + rand.int_max(5)
+        prefixes[i].size = size
 
         //Get an element from either vowels or consonants for each prefix element
         for c in 0..<size {
             if rand.int_max(consonantRatio) > 0 {
-                prefixes[i] = fmt.tprint(prefixes[i], consonants[rand.int_max(len(consonants))], sep = "")
+                prefixes[i].word[c] = &consonants[rand.int_max(len(consonants))]
                 continue
             }
 
-            prefixes[i] = fmt.tprint(prefixes[i], vowels[rand.int_max(len(vowels))], sep = "")
+            prefixes[i].word[c] = &vowels[rand.int_max(len(vowels))]
         }
     }
 
     //Create suffixes
-    suffixes: [6]string
+    suffixes := [6]Word{}
 
-    for i in 0..<len(suffixes) {
+    for i in 0..<6 {
         size = 1 + rand.int_max(5)
+        suffixes[i].size = size
 
         //Get an element from either vowels or consonants for each suffix element
         for c in 0..<size {
             if rand.int_max(consonantRatio) > 0 {
-                suffixes[i] = fmt.tprint(suffixes[i], consonants[rand.int_max(len(consonants))], sep = "")
+                suffixes[i].word[c] = &consonants[rand.int_max(len(consonants))]
                 continue
             }
 
-            suffixes[i] = fmt.tprint(suffixes[i], vowels[rand.int_max(len(vowels))], sep = "")
+            suffixes[i].word[c] = &vowels[rand.int_max(len(vowels))]
         }
     }
 
-    free_all(context.temp_allocator)
+    randomNum: int
 
     //Output names
     for i in 0..<nameCount {
-        name := ""
 
         //Add a prefix
         if rand.int_max(2) == 1 {
-            name = fmt.tprint(name, prefixes[rand.int_max(len(prefixes))], sep = "")
+            randomNum = rand.int_max(len(prefixes))
+
+            for c in 0..<prefixes[randomNum].size do fmt.print(prefixes[randomNum].word[c]^)
         }
 
         //Add elements
@@ -106,20 +114,20 @@ main :: proc() {
 
         for c in 0..<size {
             if rand.int_max(consonantRatio) > 0 {
-                name = fmt.tprint(name, consonants[rand.int_max(len(consonants))], sep = "")
+                fmt.print(consonants[rand.int_max(len(consonants))])
                 continue
             }
 
-            name = fmt.tprint(name, vowels[rand.int_max(len(vowels))], sep = "")
+            fmt.print(vowels[rand.int_max(len(vowels))])
         }
 
         //Add a suffix
         if rand.int_max(2) == 1 {
-            name = fmt.tprint(name, suffixes[rand.int_max(len(suffixes))], sep = "")
+            randomNum = rand.int_max(len(suffixes))
+
+            for c in 0..<suffixes[randomNum].size do fmt.print(suffixes[randomNum].word[c]^)
         }
 
-        fmt.println(name)
-
-        free_all(context.temp_allocator)
+        fmt.println();
     }
 }
