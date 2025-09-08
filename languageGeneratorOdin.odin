@@ -4,7 +4,6 @@ import "core:fmt"
 import "core:os"
 import "core:strconv"
 import "core:math/rand"
-import "base:runtime"
 
 @rodata
 vowels := []string{
